@@ -1,6 +1,7 @@
 const express = require("express");
 const { connection } = require("./configs/db.js");
 const userRouter = require("./routes/user.route.js");
+const projectRouter = require("./routes/project.route.js");
 
 require("dotenv").config();
 
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/users", userRouter);
+app.use("/project", projectRouter);
 
 app.get("/", (req, res) => {
   res.send("Podcast Platform Backend");
