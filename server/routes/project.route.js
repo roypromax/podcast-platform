@@ -7,7 +7,7 @@ const {
 
 const projectRouter = express.Router();
 
-projectRouter.get("/allprojects", getProjectsController);
+projectRouter.get("/:userId", getProjectsController);
 
 projectRouter.post("/create", createProjectController);
 

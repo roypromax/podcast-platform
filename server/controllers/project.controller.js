@@ -15,9 +15,9 @@ const createProjectController = async (req, res) => {
 };
 
 const getProjectsController = async (req, res) => {
-  const { user } = req.body;
+  const { userId } = req.params;
   try {
-    const allProjects = await ProjectModel.find({ user });
+    const allProjects = await ProjectModel.find({ user: userId });
     res.status(200).json({ message: "All projects", projects: allProjects });
   } catch (error) {
     res.status(500).json({ error: error.message });
