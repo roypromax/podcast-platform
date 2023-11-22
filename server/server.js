@@ -3,6 +3,7 @@ const { connection } = require("./configs/db.js");
 const userRouter = require("./routes/user.route.js");
 const projectRouter = require("./routes/project.route.js");
 const podcastFileRouter = require("./routes/podcastFile.route.js");
+const widgetRouter = require("./routes/widget.route.js");
 
 require("dotenv").config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/users", userRouter);
 app.use("/project", projectRouter);
 app.use("/podcastFile", podcastFileRouter);
+app.use("/widget", widgetRouter);
 
 app.get("/", (req, res) => {
   res.send("Podcast Platform Backend");
