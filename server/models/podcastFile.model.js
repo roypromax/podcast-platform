@@ -19,4 +19,4 @@ const podcastFileSchema = new mongoose.Schema(
 
 const PodcastFileModel = mongoose.model("podcastFile", podcastFileSchema);
 
-module.exports = podcastFileModel;
+module.exports = PodcastFileModel;
