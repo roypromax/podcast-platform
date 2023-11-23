@@ -11,6 +11,8 @@ import PricingTab from "../components/PricingTab";
 const ProjectPage = () => {
   const { projectData } = useContext(ProjectContext);
 
+  console.log(projectData);
+
   return (
     <div className="flex flex-col border-2 h-screen">
       <Navbar />

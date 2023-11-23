@@ -5,6 +5,7 @@ import axios from "axios";
 import { backendURL } from "../constants";
 import CreateNewProjectPopup from "./CreateNewProjectPopup";
 import { UserContext } from "../contexts/UserContext";
+import Spinner from "./Spinner";
 
 const HomeMain = () => {
   const [projects, setProjects] = useState(null);
@@ -46,7 +47,7 @@ const HomeMain = () => {
         />
       )}
       {loading ? (
-        <div>Loading.......</div>
+        <Spinner />
       ) : projects === null || projects.length === 0 ? (
         <CreateProject openPopup={openPopup} />
       ) : (
