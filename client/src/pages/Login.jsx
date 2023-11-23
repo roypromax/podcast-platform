@@ -3,10 +3,12 @@ import { AuthContext } from "../contexts/AuthContext";
 import axios from "axios";
 import { backendURL } from "../constants";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const { isLoggedIn, login } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   if (isLoggedIn) {
@@ -20,8 +22,9 @@ const Login = () => {
       })
       .then(function (response) {
         console.log(response.data);
-        localStorage.setItem("lamaUser", JSON.stringify(response.data.user));
+        setUser(response.data.user);
         login();
+
         navigate("/");
       })
       .catch(function (error) {

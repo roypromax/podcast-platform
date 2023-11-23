@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CreateProject from "./CreateProject";
 import ListProjects from "./ListProjects";
 import axios from "axios";
 import { backendURL } from "../constants";
 import CreateNewProjectPopup from "./CreateNewProjectPopup";
-
-const user = JSON.parse(localStorage.getItem("lamaUser"));
+import { UserContext } from "../contexts/UserContext";
 
 const HomeMain = () => {
   const [projects, setProjects] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const { user } = useContext(UserContext);
+
+  console.log(user);
 
   const openPopup = () => {
     setPopupOpen(true);
