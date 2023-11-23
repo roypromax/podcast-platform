@@ -7,7 +7,7 @@ const ProjectCard = ({ project }) => {
   const { setProjectDetails } = useContext(ProjectContext);
 
   const handleCardClick = () => {
-    setProjectDetails(project);
+    setProjectDetails((prevData) => ({ ...prevData, ...project }));
 
     navigate("/project");
   };
