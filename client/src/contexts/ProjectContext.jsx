@@ -3,7 +3,9 @@ import { createContext, useState } from "react";
 export const ProjectContext = createContext();
 
 export const ProjectProvider = ({ children }) => {
-  const [projectData, setProjectData] = useState(null);
+  const [projectData, setProjectData] = useState({
+    selectedTab: "Projects",
+  });
 
   const setProjectDetails = (data) => {
     setProjectData(data);

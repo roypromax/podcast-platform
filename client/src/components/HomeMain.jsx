@@ -38,7 +38,7 @@ const HomeMain = () => {
     <div>
       {isPopupOpen && (
         <CreateNewProjectPopup
-          user={user}
+          user={user._id}
           closePopup={closePopup}
           setProjects={setProjects}
         />
