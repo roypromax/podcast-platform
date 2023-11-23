@@ -1,6 +1,6 @@
 import React from "react";
 
-const CreateProject = () => {
+const CreateProject = ({ openPopup }) => {
   return (
     <div className="flex flex-col items-center px-44 my-10">
       <h1 className="text-5xl font-extrabold text-[#7E22CE] mb-10">
@@ -13,7 +13,10 @@ const CreateProject = () => {
         odio unde tenetur commodi proellendus eligendi magni natus ducimus
         tempora amet recusandae laboriosam temporibus?
       </p>
-      <button className="bg-[#211935] flex space-x-2 items-center py-3 px-8 rounded-lg">
+      <button
+        onClick={openPopup}
+        className="bg-[#211935] flex space-x-2 items-center py-3 px-8 rounded-lg"
+      >
         <img
           className="w-7"
           src="createProjectButton.svg"

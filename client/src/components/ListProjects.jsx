@@ -1,13 +1,16 @@
 import React from "react";
 import ProjectCard from "./ProjectCard";
 
-const ListProjects = ({ projects }) => {
+const ListProjects = ({ projects, openPopup }) => {
   return (
     <div className="px-44">
       <div className="flex justify-between items-center my-10">
         <h1 className="text-5xl font-semibold text-[#7E22CE]">Projects</h1>
 
-        <button className="bg-[#211935] flex space-x-2 items-center py-2 px-5 rounded-lg">
+        <button
+          onClick={openPopup}
+          className="bg-[#211935] flex space-x-2 items-center py-2 px-5 rounded-lg"
+        >
           <img
             className="w-5"
             src="createProjectButton.svg"
