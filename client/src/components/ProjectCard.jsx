@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 const ProjectCard = ({ project }) => {
+  const navigate = useNavigate();
+  const { setProjectDetails } = useContext(ProjectContext);
+
+  const handleCardClick = () => {
+    setProjectDetails(project);
+
+    navigate("/project");
+  };
+
   return (
-    <div className="flex items-center space-x-4 border-2 p-5 rounded-2xl shadow-lg">
+    <div
+      className="flex items-center space-x-4 border-2 p-5 rounded-2xl shadow-lg cursor-pointer hover:bg-gray-100"
+      onClick={handleCardClick}
+    >
       <div className="flex h-32 w-32 items-center justify-center rounded-2xl bg-blue-400">
         <span className="text-3xl text-white font-medium"> SP </span>
       </div>
