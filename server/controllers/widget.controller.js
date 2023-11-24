@@ -18,6 +18,8 @@ const updateWidgetController = async (req, res) => {
       return res.status(400).json({ error: "Missing file in the request" });
     }
 
+    await WidgetModel.deleteOne({ project: projectId });
+
     const uploadStream = cloudinary.uploader.upload_stream(
       { resource_type: "auto", public_id: projectId },
       async (error, result) => {
