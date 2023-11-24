@@ -32,6 +32,7 @@ const Login = () => {
       })
       .catch(function (error) {
         console.log(error);
+        alert("Login/Signup failed. Please try again.");
       })
       .finally(() => {
         setLoading(false);
