@@ -1,23 +1,73 @@
+const cloudinary = require("cloudinary").v2;
 const WidgetModel = require("../models/widget.model");
 
-const createWidgetController = async (req, res) => {
+require("dotenv").config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const updateWidgetController = async (req, res) => {
   try {
-    const newWidget = new WidgetModel(req.body);
-    await newWidget.save();
-    res.status(201).json({ message: "New widget created", widget: newWidget });
+    const projectId = req.params.projectId;
+    const { file } = req;
+
+    if (!file) {
+      return res.status(400).json({ error: "Missing file in the request" });
+    }
+
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { resource_type: "auto", public_id: projectId },
+      async (error, result) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        const widget = new WidgetModel({
+          project: projectId,
+          botIcon: result.secure_url,
+        });
+
+        try {
+          await widget.save();
+          res.status(200).json({ botIcon: widget.botIcon });
+        } catch (saveError) {
+          console.error(saveError);
+          res.status(500).json({ error: "Internal Server Error" });
+        }
+      }
+    );
+
+    const bufferStream = new require("stream").PassThrough();
+    bufferStream.end(file.buffer);
+    bufferStream.pipe(uploadStream);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 const getWidgetController = async (req, res) => {
-  const { projectId } = req.params;
   try {
+    const projectId = req.params.projectId;
+
     const widget = await WidgetModel.findOne({ project: projectId });
-    res.status(200).json({ message: "Widget details", widget });
+
+    if (!widget) {
+      res.status(200).json({ botIcon: "" });
+    } else {
+      res.status(200).json({ botIcon: widget.botIcon });
+    }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-module.exports = { createWidgetController, getWidgetController };
+module.exports = {
+  updateWidgetController,
+  getWidgetController,
+};
