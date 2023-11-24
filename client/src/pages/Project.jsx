@@ -7,6 +7,7 @@ import DeploymentAndPricingTab from "../components/DeploymentTab";
 import SettingsTab from "../components/SettingsTab";
 import Navbar from "../components/Navbar";
 import PricingTab from "../components/PricingTab";
+import { FileEditProvider } from "../contexts/FileEditContext";
 
 const ProjectPage = () => {
   const { projectData } = useContext(ProjectContext);
@@ -22,7 +23,11 @@ const ProjectPage = () => {
         <div className="flex-grow p-8">
           {projectData && (
             <>
-              {projectData.selectedTab === "Projects" && <ProjectsTab />}
+              {projectData.selectedTab === "Projects" && (
+                <FileEditProvider>
+                  <ProjectsTab />
+                </FileEditProvider>
+              )}
               {projectData.selectedTab === "Widget Configurations" && (
                 <WidgetConfigurationsTab />
               )}

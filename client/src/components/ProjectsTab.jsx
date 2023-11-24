@@ -5,11 +5,14 @@ import FilesSection from "./FilesSection";
 import axios from "axios";
 import { backendURL } from "../constants";
 import Spinner from "./Spinner";
+import { FileEditContext } from "../contexts/FileEditContext";
+import EditDescriptionTab from "./EditDescriptionTab";
 
 const ProjectsTab = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const { editMode } = useContext(FileEditContext);
 
   const { projectData } = useContext(ProjectContext);
   console.log(projectData);
@@ -40,12 +43,14 @@ const ProjectsTab = () => {
 
   useEffect(() => {
     getAllFiles(projectData._id);
-  }, []);
+  }, [editMode]);
 
   return (
     <>
       {isLoading ? (
         <Spinner />
+      ) : editMode ? (
+        <EditDescriptionTab />
       ) : (
         <div className="flex flex-col">
           <h1 className="text-3xl font-extrabold text-[#7E22CE] mb-10">

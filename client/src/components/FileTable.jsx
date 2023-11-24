@@ -1,8 +1,10 @@
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import { backendURL } from "../constants";
+import { FileEditContext } from "../contexts/FileEditContext";
 
 const FileTable = ({ files, getAllFiles }) => {
+  const { updateEditFile } = useContext(FileEditContext);
   const handleFileDelete = (file) => {
     axios
       .delete(`${backendURL}/podcastFile/delete/${file._id}`)
@@ -36,7 +38,12 @@ const FileTable = ({ files, getAllFiles }) => {
               {file.status ? "Done" : ""}
             </td>
             <td className="py-2 px-4 border text-center">
-              <button className="mr-2 border-2 px-2 py-1 rounded">Edit</button>
+              <button
+                onClick={() => updateEditFile(file)}
+                className="mr-2 border-2 px-2 py-1 rounded"
+              >
+                Edit
+              </button>
               <button
                 onClick={() => handleFileDelete(file)}
                 className=" border-2 text-red-600 px-2 py-1 rounded"
